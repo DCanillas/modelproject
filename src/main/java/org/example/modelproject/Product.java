@@ -1,22 +1,37 @@
 package org.example.modelproject;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "products")
 public class Product {
-    private String id;
+    private long id;
     private String name;
     private String description;
     private double price;
-    private List<Category> categories;
 
-    public String getId() {
+    public Product() {
+    }
+
+    public Product(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -25,6 +40,7 @@ public class Product {
         this.name = name;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -33,20 +49,13 @@ public class Product {
         this.description = description;
     }
 
+    @Column(name = "price")
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 
     @Override
@@ -56,7 +65,6 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", categories=" + categories +
                 '}';
     }
 }

@@ -1,35 +1,40 @@
 package org.example.modelproject;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
-    private String id;
-    private String customerId;
-    private List<Product> products;
+    private long id;
+    private long customerId;
 
-    public String getId() {
-        return id;
+    public Order() {
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
+    public Order(long customerId) {
         this.customerId = customerId;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    @Id
+    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
+        return id;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Column(name = "customer_id")
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -37,7 +42,6 @@ public class Order {
         return "org.example.model.Order{" +
                 "id='" + id + '\'' +
                 ", customerId='" + customerId + '\'' +
-                ", products=" + products +
                 '}';
     }
 }

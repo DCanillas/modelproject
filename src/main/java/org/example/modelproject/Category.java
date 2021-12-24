@@ -1,19 +1,35 @@
 package org.example.modelproject;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "categories")
 public class Category {
 
-    private String id;
+    private long id;
     private String name;
     private String description;
 
-    public String getId() {
+    public Category() {
+    }
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    @Id
+    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -22,6 +38,7 @@ public class Category {
         this.name = name;
     }
 
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
