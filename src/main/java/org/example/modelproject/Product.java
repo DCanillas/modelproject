@@ -2,6 +2,7 @@ package org.example.modelproject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,9 +10,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "products")
+@ToString(callSuper=true, includeFieldNames=true)
+@NoArgsConstructor
 public class Product {
 
     @Getter
@@ -51,9 +53,6 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
-
-    public Product() {
-    }
 
     public Product(String name, String description, double price) {
         this.name = name;

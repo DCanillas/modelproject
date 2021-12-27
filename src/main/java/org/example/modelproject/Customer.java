@@ -2,6 +2,7 @@ package org.example.modelproject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,9 +10,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "customers")
+@ToString(callSuper=true, includeFieldNames=true)
+@NoArgsConstructor
 public class Customer {
 
     @Getter
@@ -36,9 +38,6 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
-
-    public Customer() {
-    }
 
     public Customer(String name, String email) {
         this.name = name;
