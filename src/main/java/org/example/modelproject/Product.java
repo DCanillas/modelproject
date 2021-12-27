@@ -1,15 +1,56 @@
 package org.example.modelproject;
 
-import javax.persistence.*;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "products")
 public class Product {
+
+    @Getter
+    @Setter
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Getter
+    @Setter
+    @Column(name = "name")
     private String name;
+
+    @Getter
+    @Setter
+    @Column(name = "description")
     private String description;
+
+    @Getter
+    @Setter
+    @Column(name = "price")
     private double price;
+
+    @Getter
+    @Setter
+    @JsonIgnore
+    @ManyToMany(mappedBy = "products")
+    private Set<Order> orders = new HashSet<>();
+
+    @Getter
+    @Setter
+    @ManyToMany
+    @JoinTable(
+            name = "products_categories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories = new HashSet<>();
 
     public Product() {
     }
@@ -20,51 +61,11 @@ public class Product {
         this.price = price;
     }
 
-    @Id
-    @Column(name = "product_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
+    public void addCategory(Category category){
+        categories.add(category);
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Column(name = "price")
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "org.example.model.Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+    public void addOrder(Order order){
+        orders.add(order);
     }
 }

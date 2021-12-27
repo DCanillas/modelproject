@@ -1,47 +1,47 @@
 package org.example.modelproject;
 
-import javax.persistence.*;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "orders")
 public class Order {
 
+    @Getter
+    @Setter
+    @Id
+    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long customerId;
+
+    @Getter
+    @Setter
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    private Customer customer;
+
+    @Getter
+    @Setter
+    @ManyToMany
+    @JoinTable(
+            name = "orders_products",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> products = new HashSet<>();
 
     public Order() {
     }
 
-    public Order(long customerId) {
-        this.customerId = customerId;
+    public void addProduct(Product product){
+        products.add(product);
     }
 
-    @Id
-    @Column(name = "order_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Column(name = "customer_id")
-    public long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-
-    @Override
-    public String toString() {
-        return "org.example.model.Order{" +
-                "id='" + id + '\'' +
-                ", customerId='" + customerId + '\'' +
-                '}';
-    }
 }

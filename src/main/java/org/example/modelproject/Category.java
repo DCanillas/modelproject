@@ -1,14 +1,41 @@
 package org.example.modelproject;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "categories")
 public class Category {
 
+    @Getter
+    @Setter
+    @Id
+    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Getter
+    @Setter
+    @Column(name = "name")
     private String name;
+
+    @Getter
+    @Setter
+    @Column(name = "description")
     private String description;
+
+    @Getter
+    @Setter
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -18,41 +45,8 @@ public class Category {
         this.description = description;
     }
 
-    @Id
-    @Column(name = "category_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
+    public void addProduct(Product product){
+        products.add(product);
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "org.example.model.Category{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

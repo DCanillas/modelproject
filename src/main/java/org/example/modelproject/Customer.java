@@ -1,15 +1,41 @@
 package org.example.modelproject;
 
-import java.util.List;
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@ToString(callSuper=true, includeFieldNames=true)
 @Entity
 @Table(name = "customers")
 public class Customer {
 
+    @Getter
+    @Setter
+    @Id
+    @Column(name = "customer_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Getter
+    @Setter
+    @Column(name = "name")
     private String name;
+
+    @Getter
+    @Setter
+    @Column(name = "email")
     private String email;
+
+    @Getter
+    @Setter
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new HashSet<>();
 
     public Customer() {
     }
@@ -19,41 +45,7 @@ public class Customer {
         this.email = email;
     }
 
-    @Id
-    @Column(name = "customer_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Column(name = "name")
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "org.example.model.Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public void addOrder(Order order){
+        orders.add(order);
     }
 }
