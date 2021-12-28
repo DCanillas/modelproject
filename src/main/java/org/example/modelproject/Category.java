@@ -1,43 +1,34 @@
 package org.example.modelproject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
-@ToString(callSuper=true, includeFieldNames=true)
+@Data
 @NoArgsConstructor
+@ToString(callSuper=true, includeFieldNames=true)
+@EqualsAndHashCode(exclude="products")
 public class Category {
 
-    @Getter
-    @Setter
     @Id
     @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Getter
-    @Setter
     @Column(name = "name")
     private String name;
 
-    @Getter
-    @Setter
     @Column(name = "description")
     private String description;
 
-    @Getter
-    @Setter
     @JsonIgnore
     @ManyToMany(mappedBy = "categories")
-    private Set<Product> products = new HashSet<>();
+    private List<Product> products = new ArrayList<>();
 
     public Category(String name, String description) {
         this.name = name;
