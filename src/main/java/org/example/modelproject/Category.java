@@ -44,8 +44,4 @@ public class Category {
         this.description = description;
     }
 
-    public void addProduct(Product product){
-        products.add(product);
-    }
-
 }

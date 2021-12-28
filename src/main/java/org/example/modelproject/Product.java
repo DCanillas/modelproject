@@ -64,7 +64,4 @@ public class Product {
         categories.add(category);
     }
 
-    public void addOrder(Order order){
-        orders.add(order);
-    }
 }
