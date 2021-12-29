@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "products")
 @Data
 @NoArgsConstructor
-@ToString(callSuper=true, includeFieldNames=true)
+@ToString(exclude = "orders", includeFieldNames=true)
 @EqualsAndHashCode(exclude="orders")
 public class Product {
 
@@ -29,7 +29,6 @@ public class Product {
     @Column(name = "price")
     private double price;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
 

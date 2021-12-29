@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "customers")
 @Data
 @NoArgsConstructor
-@ToString(callSuper=true, includeFieldNames=true)
+@ToString(exclude = "orders", includeFieldNames=true)
 @EqualsAndHashCode(exclude="orders")
 public class Customer {
 
@@ -26,7 +26,6 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
