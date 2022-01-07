@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "customers")
 @Data
 @NoArgsConstructor
-@ToString(exclude = "orders", includeFieldNames=true)
+@ToString(exclude = "orders")
 @EqualsAndHashCode(exclude="orders")
 public class Customer {
 

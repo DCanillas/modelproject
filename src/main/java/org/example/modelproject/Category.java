@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "categories")
 @Data
 @NoArgsConstructor
-@ToString(exclude = "products", includeFieldNames=true)
+@ToString(exclude = "products")
 @EqualsAndHashCode(exclude="products")
 public class Category {
 

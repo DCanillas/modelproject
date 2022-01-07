@@ -10,7 +10,6 @@ import java.util.List;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
-@ToString(includeFieldNames=true)
 public class Order {
 
     @Id
