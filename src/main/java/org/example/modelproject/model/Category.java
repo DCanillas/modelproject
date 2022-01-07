@@ -1,6 +1,5 @@
-package org.example.modelproject;
+package org.example.modelproject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
