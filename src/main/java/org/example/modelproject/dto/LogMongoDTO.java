@@ -12,7 +12,5 @@ import java.util.Date;
 public class LogMongoDTO {
     private Date time;
     private String url;
-    private String state;
-    private String object;
 
 }

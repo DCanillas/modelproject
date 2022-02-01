@@ -22,8 +22,6 @@ public class LogMongo {
 
     private Date time;
     private String url;
-    private String state;
-    private String object;
 
 
 }
